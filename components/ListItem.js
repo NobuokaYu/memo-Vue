@@ -1,13 +1,6 @@
 Vue.component('list-item', {
-  data() {
-    return {
-      memo: {
-        id: 1,
-        text: 'テスト',
-        date: '16-10-28',
-        tags: ['タグ1', 'タグ2']
-      }
-    }
+  props: {
+    memo: Object
   },
   template: `
     <div class="list-item">
@@ -29,6 +22,16 @@ Vue.component('list-item', {
           <span v-for="tag in memo.tags">{{tag}}</span>
         </span>
       </div>
+      <div>
+        <button @click="remove(memo.id)">削除</button>
+      </div>
     </div>
-  `
+  `,
+  methods: {
+    remove(id) {
+      // this.$parent(ListViewコンポーネント)に
+      // 'remove' イベントをトリガーする
+      this.$parent.$emit('remove', id)
+    }
+  }
 })
